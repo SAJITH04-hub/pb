@@ -1,0 +1,567 @@
+* {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    background: #f4f6f9;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior-y: none;
+}
+
+header {
+    background: #007bff;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    will-change: transform;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 56px);
+    height: calc(100dvh - 56px);
+}
+
+/* PRODUCTS */
+.products {
+    width: 65%;
+    padding: 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.card:active {
+    transform: scale(0.97);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+
+.card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.card h4 {
+    margin: 8px 0;
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #222;
+}
+
+.card select, .card input {
+    margin: 6px 0;
+    padding: 10px;
+    width: 90%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #fff;
+    min-height: 44px;
+}
+
+.card select {
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E") no-repeat right 10px center;
+    padding-right: 30px;
+}
+
+.card button {
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 1em;
+}
+
+/* BILL */
+.billing {
+    width: 35%;
+    background: white;
+    padding: 20px;
+    border-left: 2px solid #ddd;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+}
+
+.bill-handle {
+    display: none;
+}
+
+.bill-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.billing h2 {
+    margin-top: 0;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+#clientName {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    min-height: 44px;
+}
+
+#billItems {
+    list-style: none;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    flex: 1;
+}
+
+#billItems li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 14px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    font-size: 0.95em;
+    transition: background 0.15s ease;
+    will-change: transform;
+}
+
+#billItems li:active {
+    background: #e9ecef;
+    transform: scale(0.99);
+}
+
+.remove-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 0;
+    line-height: 32px;
+    transition: background 0.2s, transform 0.15s;
+    touch-action: manipulation;
+    min-width: 32px;
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+}
+
+.remove-btn:active {
+    background: #c82333;
+    transform: scale(0.92);
+}
+
+.total {
+    background: #e7f3ff;
+    padding: 20px;
+    border-top: 3px solid #007bff;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.total p {
+    margin: 8px 0;
+    color: #007bff;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+    touch-action: manipulation;
+    min-height: 52px;
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.25);
+    user-select: none;
+}
+
+button:active {
+    background: #218838;
+    transform: scale(0.97);
+    box-shadow: 0 2px 6px rgba(40, 167, 69, 0.35);
+}
+
+#search, #elecSearch {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1em;
+    -webkit-appearance: none;
+    appearance: none;
+    min-height: 48px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#search:focus, #elecSearch:focus, #clientName:focus, .card input:focus, .card select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+/* Sticky search bars on mobile handled in media query */
+
+.sheet-backdrop {
+    display: none;
+}
+
+/* ========== MOBILE / ANDROID ========== */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.15em;
+    }
+
+    .container {
+        flex-direction: column;
+        height: auto;
+        min-height: calc(100vh - 52px);
+        min-height: calc(100dvh - 52px);
+    }
+
+    .products {
+        width: 100%;
+        padding: 12px;
+        overflow-y: visible;
+        padding-bottom: 80px; /* space for collapsed bill bar */
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .card {
+        padding: 14px;
+        border-radius: 12px;
+    }
+
+    .card img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .card h4 {
+        font-size: 0.85em;
+    }
+
+    .card select, .card input {
+        padding: 10px;
+        font-size: 0.95em;
+        min-height: 44px;
+        width: 100%;
+    }
+
+    /* Mobile Bill Bottom Sheet */
+    .billing {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+        max-height: 60vh;
+        border-left: none;
+        border-top: 1px solid #ddd;
+        border-radius: 20px 20px 0 0;
+        padding: 0;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+        z-index: 200;
+        transform: translateY(calc(100% - 56px));
+        transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+        will-change: transform;
+        background: white;
+        overflow: hidden;
+    }
+
+    .billing.open {
+        transform: translateY(0);
+    }
+
+    .bill-handle {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px 16px 0;
+        cursor: pointer;
+        touch-action: manipulation;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .bill-handle-bar {
+        width: 36px;
+        height: 4px;
+        background: #ccc;
+        border-radius: 2px;
+        margin-bottom: 6px;
+    }
+
+    .bill-summary-mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 6px 4px 10px;
+        font-weight: 600;
+        font-size: 0.95em;
+        color: #333;
+    }
+
+    #mobileBillTotal {
+        color: #007bff;
+        font-size: 1.05em;
+    }
+
+    .bill-content {
+        padding: 0 16px 20px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        max-height: calc(60vh - 56px);
+    }
+
+    .billing h2 {
+        font-size: 1.15em;
+        margin-bottom: 10px;
+    }
+
+    #billItems {
+        max-height: none;
+    }
+
+    .total {
+        font-size: 1.15em;
+        padding: 16px;
+        margin-top: 12px;
+    }
+
+    button {
+        padding: 14px;
+        font-size: 1.05em;
+        min-height: 52px;
+    }
+
+    #customItemForm input {
+        padding: 12px;
+        font-size: 1em;
+        min-height: 44px;
+        width: 100%;
+    }
+
+    .sheet-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.35);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 150;
+        will-change: opacity;
+    }
+
+    .sheet-backdrop.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    #clientName {
+        min-height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        padding: 12px;
+        gap: 12px;
+        border-radius: 12px;
+    }
+
+    .card img {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .card > *:not(img) {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .card h4 {
+        margin: 0 0 4px 0;
+        font-size: 0.9em;
+    }
+
+    .card select, .card input, .card button {
+        width: 100%;
+        margin: 3px 0;
+    }
+
+    .card button {
+        margin-top: 6px;
+        padding: 10px;
+        font-size: 0.9em;
+        min-height: 44px;
+    }
+
+    header h1 {
+        font-size: 1.1em;
+    }
+
+    #search, #elecSearch {
+        padding: 12px;
+        font-size: 1em;
+        min-height: 44px;
+        border-radius: 10px;
+    }
+
+    .products {
+        padding: 10px;
+        padding-bottom: 80px;
+    }
+
+    .billing {
+        max-height: 75vh;
+    }
+
+    .bill-content {
+        max-height: calc(75vh - 56px);
+    }
+}
+
+/* Touch-only optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .card:hover {
+        transform: none;
+    }
+
+    button:hover {
+        background: #28a745;
+    }
+
+    button:active {
+        background: #218838;
+    }
+
+    .remove-btn:hover {
+        background: #dc3545;
+    }
+
+    .remove-btn:active {
+        background: #c82333;
+    }
+}
+
+/* Respect safe areas on modern Android devices */
+@supports (padding: max(0px)) {
+    header {
+        padding-left: max(15px, env(safe-area-inset-left));
+        padding-right: max(15px, env(safe-area-inset-right));
+        padding-top: max(15px, env(safe-area-inset-top));
+    }
+
+    .products {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+    }
+
+    @media (max-width: 768px) {
+        .products {
+            padding-left: max(12px, env(safe-area-inset-left));
+            padding-right: max(12px, env(safe-area-inset-right));
+        }
+
+        .bill-content {
+            padding-left: max(16px, env(safe-area-inset-left));
+            padding-right: max(16px, env(safe-area-inset-right));
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+        }
+    }
+}
+

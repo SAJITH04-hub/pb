@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Billing App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>🛠Billing for materials</h1>
+</header>
+
+<div class="container">
+
+    <!-- LEFT: PRODUCTS -->
+    <div class="products">
+        <input type="text" id="search" placeholder="Search materials...">
+
+        <!-- Custom Item Form -->
+        <div id="customItemForm" class="card" style="margin-bottom: 20px;">
+            <h4>Add Custom Item</h4>
+        <input type="text" id="customName" placeholder="Item name" enterkeyhint="next">
+            <input type="text" id="customSize" placeholder="Size (Recommended)" enterkeyhint="next">
+            <input type="number" id="customAmount" placeholder="Amount (₹)" inputmode="decimal" pattern="[0-9]*" enterkeyhint="done">
+            <button onclick="addCustomItem()">Add to Bill</button>
+        </div>
+
+        <div id="productList" class="grid"></div>
+
+        <h2 style="margin-top: 30px; color: #ff9800;">⚡ Electrical Items</h2>
+        <input type="text" id="elecSearch" placeholder="Search electrical items..." style="width: 100%; padding: 14px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; font-size: 1em;">
+        <div id="electricalList" class="grid"></div>
+    </div>
+
+    <!-- RIGHT: BILL -->
+    <div class="billing" id="billingPanel">
+        <div class="bill-handle" id="billHandle">
+            <div class="bill-handle-bar"></div>
+            <div class="bill-summary-mobile">
+                <span id="mobileBillCount">0 items</span>
+                <span id="mobileBillTotal">₹0</span>
+            </div>
+        </div>
+        <div class="bill-content">
+            <h2>🧾 Bill</h2>
+            
+            <input type="text" id="clientName" placeholder="Client Name" enterkeyhint="done">
+            
+            <ul id="billItems"></ul>
+
+            <div class="total">
+                <p>Total: ₹<span id="total">0</span></p>
+            </div>
+
+            <button onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="sheet-backdrop" id="sheetBackdrop"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
