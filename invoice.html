@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice-Bill</title>
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 20px;
+            background: white;
+            color: #333;
+            max-width: 800px;
+            margin: auto;
+            -webkit-font-smoothing: antialiased;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px double #007bff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #007bff;
+            margin: 0;
+            font-size: 2em;
+        }
+        .client-info {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            min-width: 500px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        .total-row td {
+            font-weight: bold;
+            font-size: 1.2em;
+            background: #e7f3ff;
+        }
+        .thanks {
+            text-align: center;
+            font-style: italic;
+            color: #28a745;
+            margin-top: 30px;
+        }
+        @media print {
+            body { margin: 0; }
+            .noprint { display: none; }
+        }
+        @page { margin: 1in; }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            body {
+                margin: 12px;
+            }
+            .header h1 {
+                font-size: 1.4em;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+            .total-row td {
+                font-size: 1em;
+            }
+            .thanks {
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🛠 BILL</h1>
+        <div class="client-info">
+            <p>Client: <span id="clientName"></span></p>
+        </div>
+        <p>Invoice Date: <span id="date"></span></p>
+        <p>Invoice No: <span id="invoiceNo"></span></p>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Size</th>
+                    <th>Qty</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="invoiceTable">
+            </tbody>
+        </table>
+    </div>
+
+    <table style="margin-top: 20px;">
+        <tr class="total-row">
+            <td colspan="4" style="text-align: right;">Grand Total:</td>
+            <td id="grandTotal">₹0</td>
+        </tr>
+    </table>
+
+    <div class="thanks">
+         Thank you for your business! <br>
+        Visit us again!
+    </div>
+
+    <script>
+        // Load bill data from sessionStorage
+        const data = JSON.parse(sessionStorage.getItem('checkoutBill') || '{}');
+        const bill = data.bill || [];
+        const date = new Date().toLocaleDateString('en-IN');
+        
+        // Auto-increment invoice number
+        let invNum = parseInt(localStorage.getItem('invoiceNumber') || '0') + 1;
+        localStorage.setItem('invoiceNumber', invNum);
+        document.getElementById('invoiceNo').textContent = 'INV-' + String(invNum).padStart(3, '0');
+
+        document.getElementById('clientName').textContent = data.clientName || 'N/A';
+        document.getElementById('date').textContent = date;
+
+        // Generate table
+        const tableBody = document.getElementById('invoiceTable');
+        let grandTotal = 0;
+
+        bill.forEach(item => {
+            const amount = item.price * item.qty;
+            grandTotal += amount;
+            const sizeMatch = item.name.match(/\(([^)]+)\)/);
+            const size = sizeMatch ? sizeMatch[1] : '';
+
+            tableBody.innerHTML += `
+                <tr>
+                    <td>${item.name.replace(/ \([^)]+\)/, '')}</td>
+                    <td>${size}</td>
+                    <td>${item.qty}</td>
+                    <td>₹${item.price.toLocaleString()}</td>
+                    <td>₹${amount.toLocaleString()}</td>
+                </tr>
+            `;
+        });
+
+        document.getElementById('grandTotal').textContent = `₹${grandTotal.toLocaleString()}`;
+
+        // Auto print
+        window.onload = () => {
+            window.print();
+        };
+    </script>
+</body>
+</html>
+
